@@ -57,33 +57,58 @@ public class _3_Roman_to_Integer {
 
 
 //Other solution
+// class Solution {
+//     public int romanToInt(String s) {
+//          Map<String, Integer> numMap = Map.of(
+//             "I", 1,
+//             "V", 5,
+//             "X", 10,
+//             "L", 50,
+//             "C", 100,
+//             "D", 500,
+//             "M", 1000
+//         );
+
+//         int result = numMap.get(String.valueOf(s.charAt(s.length()-1)));
+//         String prevChar = String.valueOf(s.charAt(s.length()-1));
+
+//         for (int i = s.length()-2; i >= 0; i--) {
+//             String currentChar = String.valueOf(s.charAt(i));
+            
+//             boolean shouldSubtract = 
+//                 (currentChar.equals("I") && (prevChar.equals("V") || prevChar.equals("X"))) ||
+//                 (currentChar.equals("X") && (prevChar.equals("L") || prevChar.equals("C"))) ||
+//                 (currentChar.equals("C") && (prevChar.equals("D") || prevChar.equals("M")));
+
+//             result += shouldSubtract ? -numMap.get(currentChar) : numMap.get(currentChar);
+//             prevChar = currentChar;
+//         }
+        
+//         return result;
+//     }
+// }
+
+//Other solution
 class Solution {
     public int romanToInt(String s) {
-         Map<String, Integer> numMap = Map.of(
-            "I", 1,
-            "V", 5,
-            "X", 10,
-            "L", 50,
-            "C", 100,
-            "D", 500,
-            "M", 1000
-        );
-
-        int result = numMap.get(String.valueOf(s.charAt(s.length()-1)));
-        String prevChar = String.valueOf(s.charAt(s.length()-1));
-
-        for (int i = s.length()-2; i >= 0; i--) {
-            String currentChar = String.valueOf(s.charAt(i));
-            
-            boolean shouldSubtract = 
-                (currentChar.equals("I") && (prevChar.equals("V") || prevChar.equals("X"))) ||
-                (currentChar.equals("X") && (prevChar.equals("L") || prevChar.equals("C"))) ||
-                (currentChar.equals("C") && (prevChar.equals("D") || prevChar.equals("M")));
-
-            result += shouldSubtract ? -numMap.get(currentChar) : numMap.get(currentChar);
-            prevChar = currentChar;
+        java.util.Map<Character, Integer> values=new java.util.HashMap<>();
+        values.put('I',1);
+        values.put('V',5);
+        values.put('X',10);
+        values.put('L',50);
+        values.put('C',100);
+        values.put('D',500);
+        values.put('M',1000);
+        int total=0;
+        for(int i=0;i<s.length()-1;i++) {
+            int current=values.get(s.charAt(i));
+            int next=values.get(s.charAt(i+1));
+            total += current < next ? -current : current;
         }
-        
-        return result;
-    }
+
+        total += values.get(s.charAt(s.length() - 1));
+
+        return total;    
+
+        }
 }
