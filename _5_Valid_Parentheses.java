@@ -20,27 +20,52 @@ public class _5_Valid_Parentheses {
 }
 
 // My solution
+// class Solution {
+//     public boolean isValid(String s) {
+//         Stack<Character> stack = new Stack<>();
+//         stack.push(s.charAt(0));
+//         for (int i = 1; i < s.length(); i++) {
+//             Character character = s.charAt(i);
+//             if (character == '(' || character == '[' || character == '{') {
+//                 stack.push(character);
+//             } else {
+//                 if (stack.empty() && (character == ')' || character == ']' || character == '}')) {
+//                     return false;
+//                 } else {
+//                     Character aux = stack.peek();
+//                     if (aux == '(' && character == ')' || aux == '[' && character == ']' || aux == '{' && character == '}') {
+//                         stack.pop();
+//                         continue;
+//                     }
+//                     break;
+//                 }
+//             }
+//         }
+//         return stack.empty();
+//     }
+// }
+
+// Other solution
+//([)]
 class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
-        stack.push(s.charAt(0));
-        for (int i = 1; i < s.length(); i++) {
-            Character character = s.charAt(i);
-            if (character == '(' || character == '[' || character == '{') {
-                stack.push(character);
+        Map<Character, Character> pairs = Map.of(
+            ')', '(',
+            ']', '[',
+            '}', '{'
+        );
+
+        for (char c : s.toCharArray()) {
+            if (pairs.containsValue(c)) {
+                stack.push(c);
             } else {
-                if (stack.empty() && (character == ')' || character == ']' || character == '}')) {
+                if (stack.isEmpty() || stack.peek() != pairs.get(c)) {
                     return false;
-                } else {
-                    Character aux = stack.peek();
-                    if (aux == '(' && character == ')' || aux == '[' && character == ']' || aux == '{' && character == '}') {
-                        stack.pop();
-                        continue;
-                    }
-                    break;
                 }
+                stack.pop();
             }
         }
-        return stack.empty();
+        return stack.isEmpty();
     }
 }
