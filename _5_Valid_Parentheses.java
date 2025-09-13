@@ -47,25 +47,54 @@ public class _5_Valid_Parentheses {
 
 // Other solution
 //([)]
+// class Solution {
+//     public boolean isValid(String s) {
+//         Stack<Character> stack = new Stack<>();
+//         Map<Character, Character> pairs = Map.of(
+//             ')', '(',
+//             ']', '[',
+//             '}', '{'
+//         );
+
+//         for (char c : s.toCharArray()) {
+//             if (pairs.containsValue(c)) {
+//                 stack.push(c);
+//             } else {
+//                 if (stack.isEmpty() || stack.peek() != pairs.get(c)) {
+//                     return false;
+//                 }
+//                 stack.pop();
+//             }
+//         }
+//         return stack.isEmpty();
+//     }
+// }
+
+
+// Other solution
+//([)]
 class Solution {
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        Map<Character, Character> pairs = Map.of(
-            ')', '(',
-            ']', '[',
-            '}', '{'
-        );
-
-        for (char c : s.toCharArray()) {
-            if (pairs.containsValue(c)) {
-                stack.push(c);
-            } else {
-                if (stack.isEmpty() || stack.peek() != pairs.get(c)) {
-                    return false;
-                }
-                stack.pop();
+        if (s.length() % 2 != 0) return false;
+        char[] chr = s.toCharArray();
+        char[] stack = new char[s.length()];
+        int top = 0;
+        for(int i=0;i<chr.length;i++){
+            switch (chr[i]){
+                case '(','{','[':
+                stack[top++]=chr[i];
+                break;
+                case ')':
+                if (top == 0 || stack[--top] != '(') return false;
+                break;
+                case '}':
+                if (top == 0 || stack[--top] != '{') return false;
+                break;
+                case ']':
+                if (top == 0 || stack[--top] != '[') return false;
+                break;
             }
         }
-        return stack.isEmpty();
+        return top==0;
     }
 }
