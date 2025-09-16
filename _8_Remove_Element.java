@@ -1,4 +1,3 @@
-import java.util.*;  // Importa Map y HashMap
 import java.util.Arrays; // Para imprimir arrays fácilmente
 
 public class _8_Remove_Element {
