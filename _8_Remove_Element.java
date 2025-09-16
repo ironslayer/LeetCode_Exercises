@@ -21,28 +21,43 @@ public class _8_Remove_Element {
     }
 }
 // My solution
+// class Solution {
+//     public int removeElement(int[] nums, int val) {
+//         int count = 0;
+//         int tam = nums.length;
+//         for (int num : nums) {
+//         if (num == val) count++;
+//         }
+//         if (count == 0) return tam;
+
+//         for (int i = 0; i < tam; i++) {
+//             int c = i+1;
+//             while (nums[i] == val) {
+//                 if (c >= tam){
+//                     break;
+//                 }
+//                 int aux = nums[i];
+//                 nums[i] = nums[c]; 
+//                 nums[c] = aux;
+//                 c++;
+//             }
+//         }
+        
+//         return tam-count;
+//     }
+// }
+
+
+// Other solution
 class Solution {
     public int removeElement(int[] nums, int val) {
-        int count = 0;
-        int tam = nums.length;
-        for (int num : nums) {
-        if (num == val) count++;
-        }
-        if (count == 0) return tam;
-
-        for (int i = 0; i < tam; i++) {
-            int c = i+1;
-            while (nums[i] == val) {
-                if (c >= tam){
-                    break;
-                }
-                int aux = nums[i];
-                nums[i] = nums[c]; 
-                nums[c] = aux;
-                c++;
+        int j = 0; 
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[j] = nums[i];
+                j++;
             }
         }
-        
-        return tam-count;
+        return j; 
     }
 }
