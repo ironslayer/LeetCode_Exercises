@@ -1,13 +1,38 @@
+
+// My solution
+// function removeElement(nums: number[], val: number): number {
+//     let j = 0;
+//     for (let i = 0; i < nums.length; i++) {
+//         if (nums[i] !== val) {
+//             nums[j] = nums[i];
+//             j++;
+//         }
+//     }
+//     return j; 
+// }
+
+//Other solution
 function removeElement(nums: number[], val: number): number {
-    let j = 0;
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] !== val) {
-            nums[j] = nums[i];
-            j++;
+    let l = 0, r = nums.length - 1;
+    
+    while (l <= r) {
+        if (nums[l] !== val) {
+            l++;
+        } else {
+            while (nums[r] === val) {
+                r--;
+            }
+
+            if (l > r) break;
+
+            nums[l] = nums[r];
+            l++;
+            r--;
         }
     }
-    return j; 
-}
+
+    return l;
+};
 
 let nums4 = [3, 2, 2, 3];
 let k4 = removeElement(nums4, 3);
