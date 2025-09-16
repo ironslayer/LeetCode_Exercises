@@ -17,23 +17,53 @@ public class _9_Find_the_Town_Judge {
     }
 }
 // My solution
+// class Solution {
+//     public int findJudge(int n, int[][] trust) {
+//         int[] score = new int[n + 1]; 
+
+//         for (int[] relation : trust) {
+//             int a = relation[0];
+//             int b = relation[1];
+//             score[a]--; 
+//             score[b]++; 
+//         }
+
+//         for (int i = 1; i <= n; i++) {
+//             if (score[i] == n - 1) {
+//                 return i;
+//             }
+//         }
+
+//         return -1; 
+//     }
+// }
+
+// Other solution
 class Solution {
-    public int findJudge(int n, int[][] trust) {
-        int[] score = new int[n + 1]; 
-
-        for (int[] relation : trust) {
-            int a = relation[0];
-            int b = relation[1];
-            score[a]--; 
-            score[b]++; 
+    public int findJudge(int n, int[][] trust) 
+    {
+        int arr[] = new int[n + 1];
+        for(int i = 0; i < trust.length; i++)
+        {
+            arr[trust[i][1]]++;
         }
-
-        for (int i = 1; i <= n; i++) {
-            if (score[i] == n - 1) {
-                return i;
+        int judge = -1;
+        for(int i = 1; i <= n; i++)
+        {
+            if(arr[i] == n -1)
+            {
+                judge = i;
+                break;
             }
         }
-
-        return -1; 
+        for(int i = 0; i < trust.length; i++)
+        {
+            if(judge == trust[i][0])
+            {
+                judge = -1;
+                break;
+            }
+        }
+        return judge;
     }
 }
