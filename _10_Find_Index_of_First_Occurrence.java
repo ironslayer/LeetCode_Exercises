@@ -13,22 +13,41 @@ public class _10_Find_Index_of_First_Occurrence {
 }
 
 // My solution
+// class Solution {
+//     public int strStr(String haystack, String needle) {
+//         // Solución rápida con método de Java
+//         return haystack.indexOf(needle);
+
+//         // --- Opción manual sin usar indexOf ---
+//         /*
+//         int n = haystack.length();
+//         int m = needle.length();
+
+//         for (int i = 0; i <= n - m; i++) {
+//             if (haystack.substring(i, i + m).equals(needle)) {
+//                 return i;
+//             }
+//         }
+//         return -1;
+//         */
+//     }
+// }
+
+
+// Other solution
+
 class Solution {
     public int strStr(String haystack, String needle) {
-        // Solución rápida con método de Java
-        return haystack.indexOf(needle);
-
-        // --- Opción manual sin usar indexOf ---
-        /*
-        int n = haystack.length();
-        int m = needle.length();
-
-        for (int i = 0; i <= n - m; i++) {
-            if (haystack.substring(i, i + m).equals(needle)) {
+        if (haystack.length() < needle.length()) {
+            return -1;
+        }
+        
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            if (haystack.substring(i, i + needle.length()).equals(needle)) {
                 return i;
             }
         }
-        return -1;
-        */
+        
+        return -1;        
     }
 }
