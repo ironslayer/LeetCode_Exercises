@@ -25,22 +25,43 @@ public class _11_Search_Insert_Position {
         System.out.println("Output: " + sol.searchInsert(nums4, target4)); 
     }
 }
+//My solution
+// class Solution {
+//     public int searchInsert(int[] nums, int target) {
+//         int left = 0, right = nums.length - 1;
+
+//         while (left <= right) {
+//             int mid = left + (right - left) / 2; 
+//             if (nums[mid] == target) {
+//                 return mid;
+//             } else if (nums[mid] < target) {
+//                 left = mid + 1;
+//             } else {
+//                 right = mid - 1;
+//             }
+//         }
+
+//         return left;
+//     }
+// }
 
 class Solution {
     public int searchInsert(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
+        int start = 0;
+        int end = nums.length - 1;
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2; 
-            if (nums[mid] == target) {
+        while (start <= end) {
+            int mid = start + ((end - start) >>> 1);
+
+            if(target == nums[mid]){
                 return mid;
-            } else if (nums[mid] < target) {
-                left = mid + 1;
+            }
+            if (target > nums[mid]){
+                start = mid + 1;
             } else {
-                right = mid - 1;
+                end = mid - 1;
             }
         }
-
-        return left;
+        return start;
     }
 }
