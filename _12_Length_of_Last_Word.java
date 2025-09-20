@@ -11,10 +11,19 @@ public class _12_Length_of_Last_Word {
 }
 
 // My solution
+// class Solution {
+//     public int lengthOfLastWord(String s) {
+//         s = s.trim();
+//         int lastSpace = s.lastIndexOf(" ");
+//         return s.length() - lastSpace - 1;
+//     }
+// }
+
+//Other solution
+
 class Solution {
     public int lengthOfLastWord(String s) {
-        s = s.trim();
-        int lastSpace = s.lastIndexOf(" ");
-        return s.length() - lastSpace - 1;
+        String[] st = s.split(" ");
+        return st[st.length-1].length();
     }
 }
