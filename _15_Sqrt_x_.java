@@ -11,15 +11,25 @@ public class _15_Sqrt_x_ {
 }
 
 //My solution
+// class Solution {
+//     public int mySqrt(int x) {
+//         int numOdd = 1;
+//         int c = 0;
+//         while (x > 0) {
+//             x-=numOdd;
+//             numOdd+=2;
+//             c++;
+//         }
+//         return x<0? c-1:c;
+//     }
+// }
+
+//Other solution
+
 class Solution {
     public int mySqrt(int x) {
-        int numOdd = 1;
-        int c = 0;
-        while (x > 0) {
-            x-=numOdd;
-            numOdd+=2;
-            c++;
-        }
-        return x<0? c-1:c;
+        double sqrt=Math.sqrt(x);
+        int result=(int)sqrt;
+        return result;
     }
 }
