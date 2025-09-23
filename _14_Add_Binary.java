@@ -10,30 +10,62 @@ public class _14_Add_Binary {
 }
 
 //My solution
+// class Solution {
+//     public String addBinary(String a, String b) {
+//         StringBuilder result = new StringBuilder();
+
+//         int i = a.length() - 1;
+//         int j = b.length() - 1;
+//         int carry = 0; 
+
+//         while (i >= 0 || j >= 0 || carry > 0) {
+//             int sum = carry;
+
+//             if (i >= 0) {
+//                 sum += a.charAt(i) - '0'; 
+//                 i--;
+//             }
+//             if (j >= 0) {
+//                 sum += b.charAt(j) - '0';
+//                 j--;
+//             }
+
+//             result.append(sum % 2); 
+//             carry = sum / 2;        
+//         }
+
+//         return result.reverse().toString(); 
+//     }
+// }
+
+//Other solution
 class Solution {
     public String addBinary(String a, String b) {
-        StringBuilder result = new StringBuilder();
+        if (b.length() > a.length())
+            return addBinary(b, a);
 
+        char[] result = new char[a.length() + 1];
+        int sum = 0;
         int i = a.length() - 1;
         int j = b.length() - 1;
-        int carry = 0; 
+        int carry = 0;
 
-        while (i >= 0 || j >= 0 || carry > 0) {
-            int sum = carry;
+        while(i >= 0)
+        {
+            sum = (a.charAt(i) - '0') + carry;
+            
+            if (j >= 0)
+                sum += (b.charAt(j--) - '0');
+            
+            carry = sum / 2;
+            result[i + 1] = (char) ('0' + sum % 2);
 
-            if (i >= 0) {
-                sum += a.charAt(i) - '0'; 
-                i--;
-            }
-            if (j >= 0) {
-                sum += b.charAt(j) - '0';
-                j--;
-            }
-
-            result.append(sum % 2); 
-            carry = sum / 2;        
+            i--;
         }
-
-        return result.reverse().toString(); 
+        if (carry == 1) {
+            result[0] = '1';
+            return new String(result);
+        }
+        return new String(result, 1, result.length - 1);
     }
 }
