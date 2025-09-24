@@ -1,8 +1,27 @@
+// function climbStairs(n: number): number {
+//     if (n === 0 || n === 1) {
+//         return 1;
+//     }
+//     return climbStairs(n - 1) + climbStairs(n - 2);
+// }
+
+
+//Other solution
+
 function climbStairs(n: number): number {
-    if (n === 0 || n === 1) {
-        return 1;
+    if (n === 1) return 1;
+    if (n === 2) return 2;
+
+    let a = 1; 
+    let b = 2;
+
+    for (let i = 3; i <= n; i++) {
+        const temp = a + b; 
+        a = b;
+        b = temp;
     }
-    return climbStairs(n - 1) + climbStairs(n - 2);
+
+    return b;
 }
 
 console.log(climbStairs(2));  
