@@ -39,22 +39,38 @@ class ListNode {
 
 
  // My solution
+// class Solution {
+
+//     public ListNode deleteDuplicates(ListNode head) {
+//         ListNode dummy = new ListNode(0);
+//         ListNode current = dummy;
+
+//         int aux = 0;
+//         while (head != null) {
+//             if (head.val > aux) {
+//                 current.next = head;
+//                 aux = head.val;
+//                 current = current.next;
+//             }
+//             head = head.next;
+//         }
+//         current.next = null;
+//         return dummy.next; 
+//     }
+// }
+
+//Other solution
 class Solution {
-
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
+        ListNode current = head;
 
-        int aux = 0;
-        while (head != null) {
-            if (head.val > aux) {
-                current.next = head;
-                aux = head.val;
+        while (current != null && current.next != null) {
+            if (current.val == current.next.val) {
+                current.next = current.next.next;
+            } else {
                 current = current.next;
             }
-            head = head.next;
         }
-        current.next = null;
-        return dummy.next; 
+        return head;
     }
 }
