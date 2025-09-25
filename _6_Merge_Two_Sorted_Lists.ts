@@ -1,8 +1,8 @@
 
 class ListNode {
     val: number;
-    next: ListNode | null;
-    constructor(val?: number, next?: ListNode | null) {
+    next: ListNode2 | null;
+    constructor(val?: number, next?: ListNode2 | null) {
         this.val = (val === undefined ? 0 : val);
         this.next = (next === undefined ? null : next);
     }
@@ -30,7 +30,7 @@ class ListNode {
 // }
 
 //other solution
-function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
+function mergeTwoLists(list1: ListNode2 | null, list2: ListNode2 | null): ListNode2 | null {
     if (list1 == null) return list2;
     if (list2 == null) return list1;
     let newList = list1.val < list2.val ? list1 : list2;
@@ -66,7 +66,7 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
     return newListAnchor;
 };
 
-function printList(head: ListNode | null) {
+function printList(head: ListNode2 | null) {
     let cur = head;
     const res: number[] = [];
     while (cur !== null) {
@@ -76,7 +76,7 @@ function printList(head: ListNode | null) {
     console.log(res.join(" -> "));
 }
 
-const list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
-const list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+const list1 = new ListNode2(1, new ListNode2(2, new ListNode2(4)));
+const list2 = new ListNode2(1, new ListNode2(3, new ListNode2(4)));
 const merged = mergeTwoLists(list1, list2);
 printList(merged); // Output: 1 -> 1 -> 2 -> 3 -> 4 -> 4

@@ -3,15 +3,15 @@ public class _17_Remove_Duplicates_from_Sorted_List {
     public static void main(String[] args) {
          Solution sol = new Solution();
 
-        // ListNode list1 = new ListNode(1, new ListNode(1, new ListNode(2)));
+        ListNode list1 = new ListNode(1, new ListNode(1, new ListNode(2)));
 
         ListNode list2 = new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3, new ListNode(3))))));
 
-        // ListNode ans1 = sol.deleteDuplicates(list1);
+        ListNode ans1 = sol.deleteDuplicates(list1);
 
         ListNode ans2 = sol.deleteDuplicates(list2);
 
-        // printList(ans1);
+        printList(ans1);
 
         printList(ans2);
 
