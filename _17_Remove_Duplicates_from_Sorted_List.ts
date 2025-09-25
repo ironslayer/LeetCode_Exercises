@@ -8,18 +8,36 @@ class ListNode2 {
     }
 }
 
-function deleteDuplicates(head: ListNode2 | null): ListNode2 | null {
-    let current = head;
+// function deleteDuplicates(head: ListNode2 | null): ListNode2 | null {
+//     let current = head;
 
-    while (current !== null && current.next !== null) {
-        if (current.val === current.next.val) {
-            current.next = current.next.next;
+//     while (current !== null && current.next !== null) {
+//         if (current.val === current.next.val) {
+//             current.next = current.next.next;
+//         } else {
+//             current = current.next;
+//         }
+//     }
+//     return head;
+// }
+
+
+//Other solution
+function deleteDuplicates(head: ListNode2 | null): ListNode2 | null {
+    let res = head;
+
+    while (head && head.next) {
+        if (head.val === head.next.val) {
+            head.next = head.next.next;
         } else {
-            current = current.next;
+            head = head.next;
         }
     }
-    return head;
-}
+
+    return res;    
+};
+
+
 
 function printList2(head: ListNode2 | null): void {
     const values: number[] = [];
