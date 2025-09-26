@@ -1,19 +1,37 @@
 
 
+// function hasCycle(head: ListNode3 | null): boolean {
+//     let slow: ListNode3 | null = head;
+//     let fast: ListNode3 | null = head;
+
+//     while (fast !== null && fast.next !== null) {
+//         slow = slow!.next;        
+//         fast = fast.next.next;     
+
+//         if (slow === fast) {     
+//             return true;
+//         }
+//     }
+
+//     return false; 
+// }
+
+//Other solution
 function hasCycle(head: ListNode3 | null): boolean {
-    let slow: ListNode3 | null = head;
-    let fast: ListNode3 | null = head;
+  if (!head || !head.next) return false; 
 
-    while (fast !== null && fast.next !== null) {
-        slow = slow!.next;        
-        fast = fast.next.next;     
+  let slow: ListNode3 | null = head;
+  let fast: ListNode3 | null = head.next;
 
-        if (slow === fast) {     
-            return true;
-        }
+  while (slow !== fast) {
+    if (!fast || !fast.next) {
+      return false; 
     }
+    slow = slow!.next;
+    fast = fast.next.next;
+  }
 
-    return false; 
+  return true; 
 }
 
 class ListNode3 {
