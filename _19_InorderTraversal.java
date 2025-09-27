@@ -35,39 +35,38 @@ class TreeNode {
     }
 }
 
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        inorderHelper(root, res);
-        return res;
-    }
-    private void inorderHelper(TreeNode node, List<Integer> res) {
-        if (node == null) return;
-        inorderHelper(node.left, res);
-        res.add(node.val);
-        inorderHelper(node.right, res);
-    }
-
-}
-
-
 // class Solution {
-
-
 //     public List<Integer> inorderTraversal(TreeNode root) {
 //         List<Integer> res = new ArrayList<>();
-//         Stack<TreeNode> stack = new Stack<>();
-//         TreeNode current = root;
-
-//         while (current != null || !stack.isEmpty()) {
-//             while (current != null) {
-//                 stack.push(current);
-//                 current = current.left;
-//             }
-//             current = stack.pop();
-//             res.add(current.val);
-//             current = current.right;
-//         }
+//         inorderHelper(root, res);
 //         return res;
 //     }
+//     private void inorderHelper(TreeNode node, List<Integer> res) {
+//         if (node == null) return;
+//         inorderHelper(node.left, res);
+//         res.add(node.val);
+//         inorderHelper(node.right, res);
+//     }
+
 // }
+
+//Other solution
+class Solution {
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            current = stack.pop();
+            res.add(current.val);
+            current = current.right;
+        }
+        return res;
+    }
+}
