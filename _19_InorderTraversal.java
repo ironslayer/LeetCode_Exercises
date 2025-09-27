@@ -51,22 +51,39 @@ class TreeNode {
 // }
 
 //Other solution
+// class Solution {
+
+//     public List<Integer> inorderTraversal(TreeNode root) {
+//         List<Integer> res = new ArrayList<>();
+//         Stack<TreeNode> stack = new Stack<>();
+//         TreeNode current = root;
+
+//         while (current != null || !stack.isEmpty()) {
+//             while (current != null) {
+//                 stack.push(current);
+//                 current = current.left;
+//             }
+//             current = stack.pop();
+//             res.add(current.val);
+//             current = current.right;
+//         }
+//         return res;
+//     }
+// }
+
+//Other solution
 class Solution {
-
+    private List<Integer> answer;
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
-
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-            current = stack.pop();
-            res.add(current.val);
-            current = current.right;
+        this.answer=new ArrayList<>();
+        inorder(root);
+        return this.answer;
+    }
+    public void inorder(TreeNode node){
+        if(node!=null){
+            inorder(node.left);
+            this.answer.add(node.val);
+            inorder(node.right);
         }
-        return res;
     }
 }
