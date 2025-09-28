@@ -11,22 +11,28 @@ class TreeNode2 {
     }
 }
 
+// function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+//     if (p === null && q === null) {
+//         return true;
+//     }
+
+//     if (p === null || q === null) {
+//         return false;
+//     }
+
+//     if (p.val !== q.val) {
+//         return false;
+//     }
+
+//     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+// }
+
+//Other solution
 function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
-    if (p === null && q === null) {
-        return true;
-    }
-
-    if (p === null || q === null) {
-        return false;
-    }
-
-    if (p.val !== q.val) {
-        return false;
-    }
-
-    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  if (!p && !q) return true;
+  if (!p || !q || p.val !== q.val) return false;
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 }
-
 
 function main() {
     const p1 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
