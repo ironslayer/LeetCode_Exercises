@@ -50,29 +50,72 @@ class TreeNode {
 
 // }
 
+
+//Other solution
+// class Solution {
+//     public boolean isSymmetric(TreeNode root) {
+//         if (root == null) return true;
+
+//         Queue<TreeNode> queue = new LinkedList<>();
+//         queue.add(root.left);
+//         queue.add(root.right);
+
+//         while (!queue.isEmpty()) {
+//             TreeNode t1 = queue.poll();
+//             TreeNode t2 = queue.poll();
+
+//             if (t1 == null && t2 == null) continue;
+//             if (t1 == null || t2 == null) return false;
+//             if (t1.val != t2.val) return false;
+
+//             queue.add(t1.left);
+//             queue.add(t2.right);
+
+//             queue.add(t1.right);
+//             queue.add(t2.left);
+//         }
+
+//         return true;
+//     }
+// }
+
+
+//Other solution
+
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
+        if(root == null)    return true;
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root.left);
-        queue.add(root.right);
+        root.left = invertTree(root.left);
+        return isSameTree(root.left, root.right);
+    }
 
-        while (!queue.isEmpty()) {
-            TreeNode t1 = queue.poll();
-            TreeNode t2 = queue.poll();
+    TreeNode invertTree(TreeNode root){
+        if(root == null)    return root;
 
-            if (t1 == null && t2 == null) continue;
-            if (t1 == null || t2 == null) return false;
-            if (t1.val != t2.val) return false;
+        root.left = invertTree(root.left);
+        root.right = invertTree(root.right);
 
-            queue.add(t1.left);
-            queue.add(t2.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
 
-            queue.add(t1.right);
-            queue.add(t2.left);
+        return root;
+    }
+
+    boolean isSameTree(TreeNode p, TreeNode q){
+        if(p != null && q != null){
+            if(p.val == q.val){
+                return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
+            }else{
+                return false;
+            }
+        }else{
+            if(p == null && q == null){
+                return true;
+            }else{
+                return false;
+            }
         }
-
-        return true;
     }
 }
