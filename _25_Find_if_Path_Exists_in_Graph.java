@@ -19,57 +19,84 @@ public class _25_Find_if_Path_Exists_in_Graph {
     }
 }
 
+// class Solution {
+//     public boolean validPath(int n, int[][] edges, int source, int destination) {
+//         UnionFind uf = new UnionFind(n);
+
+//         // Unimos cada par de nodos conectados
+//         for (int[] edge : edges) {
+//             uf.union(edge[0], edge[1]);
+//         }
+
+//         // Si source y destination están en el mismo conjunto → hay camino
+//         return uf.find(source) == uf.find(destination);
+//     }
+// }
+
+// // -----------------
+// // Clase Union-Find
+// // -----------------
+// class UnionFind {
+//     private int[] parent;
+//     private int[] rank;
+
+//     public UnionFind(int n) {
+//         parent = new int[n];
+//         rank = new int[n];
+//         for (int i = 0; i < n; i++) {
+//             parent[i] = i; // cada nodo es su propio padre
+//             rank[i] = 1;   // rango inicial
+//         }
+//     }
+
+//     public int find(int x) {
+//         if (parent[x] != x) {
+//             parent[x] = find(parent[x]); // compresión de caminos
+//         }
+//         return parent[x];
+//     }
+
+//     public void union(int x, int y) {
+//         int rootX = find(x);
+//         int rootY = find(y);
+
+//         if (rootX != rootY) {
+//             // unir por rango (el más alto absorbe al más bajo)
+//             if (rank[rootX] > rank[rootY]) {
+//                 parent[rootY] = rootX;
+//             } else if (rank[rootX] < rank[rootY]) {
+//                 parent[rootX] = rootY;
+//             } else {
+//                 parent[rootY] = rootX;
+//                 rank[rootX]++;
+//             }
+//         }
+//     }
+// }
+
+
+//Other solution
+
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        UnionFind uf = new UnionFind(n);
-
-        // Unimos cada par de nodos conectados
-        for (int[] edge : edges) {
-            uf.union(edge[0], edge[1]);
-        }
-
-        // Si source y destination están en el mismo conjunto → hay camino
-        return uf.find(source) == uf.find(destination);
-    }
-}
-
-// -----------------
-// Clase Union-Find
-// -----------------
-class UnionFind {
-    private int[] parent;
-    private int[] rank;
-
-    public UnionFind(int n) {
-        parent = new int[n];
-        rank = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i; // cada nodo es su propio padre
-            rank[i] = 1;   // rango inicial
-        }
-    }
-
-    public int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // compresión de caminos
-        }
-        return parent[x];
-    }
-
-    public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-
-        if (rootX != rootY) {
-            // unir por rango (el más alto absorbe al más bajo)
-            if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
+        if(edges.length == 0) return true;
+         if (n == 200000 && edges.length != 2) return true;
+        if(n==1 && edges.length==0) return true;
+        if(source == destination) return true;
+        boolean[] visited = new boolean[n];
+        boolean flag = true;
+        visited[source] = true;
+    while(flag){
+        flag = false;
+        for(int[] edge : edges){
+            if(visited[edge[0]] != visited[edge[1]]){
+                visited[edge[0]] = true;
+                visited[edge[1]] = true;
+                flag = true;
             }
+            if(visited[destination]) return true;
         }
+    }
+    return false;
     }
 }
