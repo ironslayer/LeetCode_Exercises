@@ -1,27 +1,68 @@
-function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
-    if (edges.length === 0) return true;
-    if (n === 200000 && edges.length !== 2) return true;
-    if (n === 1 && edges.length === 0) return true;
-    if (source === destination) return true;
+// function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
+//     if (edges.length === 0) return true;
+//     if (n === 200000 && edges.length !== 2) return true;
+//     if (n === 1 && edges.length === 0) return true;
+//     if (source === destination) return true;
 
-    const visited: boolean[] = new Array(n).fill(false);
-    let flag = true;
+//     const visited: boolean[] = new Array(n).fill(false);
+//     let flag = true;
 
-    visited[source] = true;
+//     visited[source] = true;
 
-    while (flag) {
-        flag = false;
-        for (const [u, v] of edges) {
-            if (visited[u] !== visited[v]) {
-                visited[u] = true;
-                visited[v] = true;
-                flag = true;
-            }
-            if (visited[destination]) return true;
-        }
+//     while (flag) {
+//         flag = false;
+//         for (const [u, v] of edges) {
+//             if (visited[u] !== visited[v]) {
+//                 visited[u] = true;
+//                 visited[v] = true;
+//                 flag = true;
+//             }
+//             if (visited[destination]) return true;
+//         }
+//     }
+
+//     return false;
+// }
+
+
+
+//Other solution
+
+function init(n: number): number[] {
+    const forest: number[] = [];
+    for (let i = 0; i < n; i++) {
+        forest[i] = i;
+    }
+    return forest;
+}
+
+function getRootAndCompressPath(node: number, forest: number[]): number {
+    if (forest[node] === node) {
+        return node;
     }
 
-    return false;
+    const root: number = getRootAndCompressPath(forest[node], forest);
+    forest[node] = root; // path compression
+    return root;
+}
+
+function union(nodeA: number, nodeB: number, forest: number[]): void {
+    const rootA: number = getRootAndCompressPath(nodeA, forest);
+    const rootB: number = getRootAndCompressPath(nodeB, forest);
+
+    if (rootA !== rootB) {
+        forest[rootB] = rootA;
+    }
+}
+
+function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
+    const forest: number[] = init(n);
+
+    for (const [u, v] of edges) {
+        union(u, v, forest);
+    }
+
+    return getRootAndCompressPath(source, forest) === getRootAndCompressPath(destination, forest);
 }
 
 
