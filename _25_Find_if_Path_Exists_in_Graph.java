@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class _25_Find_if_Path_Exists_in_Graph {
     public static void main(String[] args) {
         Solution sol = new Solution();
@@ -101,69 +106,104 @@ public class _25_Find_if_Path_Exists_in_Graph {
 //     }
 // }
 
-class Solution {
+//Other solution
+// class Solution {
 
-    class DisjointSetUnion{
+//     class DisjointSetUnion{
 
-        int parent[];
-        int N;
+//         int parent[];
+//         int N;
 
-        public DisjointSetUnion(int n){
-            this.parent = new int[n];
-            this.N = n;
+//         public DisjointSetUnion(int n){
+//             this.parent = new int[n];
+//             this.N = n;
 
-            for(int i=0; i<this.N; i++){
-                parent[i] = i;
-            }
+//             for(int i=0; i<this.N; i++){
+//                 parent[i] = i;
+//             }
 
-        }
+//         }
 
-        public int find(int u){
-            int x = u;
+//         public int find(int u){
+//             int x = u;
 
-            while(x != this.parent[x]){
-                x = this.parent[x];
-            }
+//             while(x != this.parent[x]){
+//                 x = this.parent[x];
+//             }
 
-            this.parent[u] = x;
+//             this.parent[u] = x;
 
-            return x;
-        }
+//             return x;
+//         }
 
-        public boolean areConnected(int u, int v){
+//         public boolean areConnected(int u, int v){
             
-            if(u == v){
-                return true;
-            }
+//             if(u == v){
+//                 return true;
+//             }
             
-            return find(u) == find(v);
-        }
+//             return find(u) == find(v);
+//         }
 
-        public void union(int u, int v){
+//         public void union(int u, int v){
 
-            if(u == v){
-                return;
-            }
+//             if(u == v){
+//                 return;
+//             }
 
-            int a = find(u);
-            int b = find(v);
+//             int a = find(u);
+//             int b = find(v);
 
-            parent[a] = b;
+//             parent[a] = b;
 
 
-        }
+//         }
 
-    }
+//     }
 
-    public boolean validPath(int n, int[][] edges, int source, int destination) {
+//     public boolean validPath(int n, int[][] edges, int source, int destination) {
         
-        DisjointSetUnion set = new DisjointSetUnion(n);
+//         DisjointSetUnion set = new DisjointSetUnion(n);
 
-        for(int edge[] : edges){
-            set.union(edge[0], edge[1]);
+//         for(int edge[] : edges){
+//             set.union(edge[0], edge[1]);
+//         }
+
+//         return set.areConnected(source, destination);
+
+//     }
+// }
+
+
+
+// Other solution
+
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        List<Integer>[] graph = new ArrayList[n];
+        for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
+        for (int[] e : edges) {
+            graph[e[0]].add(e[1]);
+            graph[e[1]].add(e[0]);
         }
 
-        return set.areConnected(source, destination);
+        boolean[] visited = new boolean[n];
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(source);
+        visited[source] = true;
 
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            if (node == destination) return true;
+
+            for (int nei : graph[node]) {
+                if (!visited[nei]) {
+                    visited[nei] = true;
+                    q.offer(nei);
+                }
+            }
+        }
+
+        return false;
     }
 }
