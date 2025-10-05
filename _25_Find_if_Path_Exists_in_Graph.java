@@ -77,26 +77,93 @@ public class _25_Find_if_Path_Exists_in_Graph {
 
 //Other solution
 
+// class Solution {
+//     public boolean validPath(int n, int[][] edges, int source, int destination) {
+//         if(edges.length == 0) return true;
+//          if (n == 200000 && edges.length != 2) return true;
+//         if(n==1 && edges.length==0) return true;
+//         if(source == destination) return true;
+//         boolean[] visited = new boolean[n];
+//         boolean flag = true;
+//         visited[source] = true;
+//     while(flag){
+//         flag = false;
+//         for(int[] edge : edges){
+//             if(visited[edge[0]] != visited[edge[1]]){
+//                 visited[edge[0]] = true;
+//                 visited[edge[1]] = true;
+//                 flag = true;
+//             }
+//             if(visited[destination]) return true;
+//         }
+//     }
+//     return false;
+//     }
+// }
+
 class Solution {
-    public boolean validPath(int n, int[][] edges, int source, int destination) {
-        if(edges.length == 0) return true;
-         if (n == 200000 && edges.length != 2) return true;
-        if(n==1 && edges.length==0) return true;
-        if(source == destination) return true;
-        boolean[] visited = new boolean[n];
-        boolean flag = true;
-        visited[source] = true;
-    while(flag){
-        flag = false;
-        for(int[] edge : edges){
-            if(visited[edge[0]] != visited[edge[1]]){
-                visited[edge[0]] = true;
-                visited[edge[1]] = true;
-                flag = true;
+
+    class DisjointSetUnion{
+
+        int parent[];
+        int N;
+
+        public DisjointSetUnion(int n){
+            this.parent = new int[n];
+            this.N = n;
+
+            for(int i=0; i<this.N; i++){
+                parent[i] = i;
             }
-            if(visited[destination]) return true;
+
         }
+
+        public int find(int u){
+            int x = u;
+
+            while(x != this.parent[x]){
+                x = this.parent[x];
+            }
+
+            this.parent[u] = x;
+
+            return x;
+        }
+
+        public boolean areConnected(int u, int v){
+            
+            if(u == v){
+                return true;
+            }
+            
+            return find(u) == find(v);
+        }
+
+        public void union(int u, int v){
+
+            if(u == v){
+                return;
+            }
+
+            int a = find(u);
+            int b = find(v);
+
+            parent[a] = b;
+
+
+        }
+
     }
-    return false;
+
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        
+        DisjointSetUnion set = new DisjointSetUnion(n);
+
+        for(int edge[] : edges){
+            set.union(edge[0], edge[1]);
+        }
+
+        return set.areConnected(source, destination);
+
     }
 }
