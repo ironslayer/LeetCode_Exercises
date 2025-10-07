@@ -45,3 +45,4 @@ console.log("k2 =", k5, ", nums2 =", nums5.slice(0, k5));
 let nums6 = [3, 3];
 let k6 = removeElement(nums6, 3);
 console.log("k3 =", k6, ", nums3 =", nums6.slice(0, k6));
+
