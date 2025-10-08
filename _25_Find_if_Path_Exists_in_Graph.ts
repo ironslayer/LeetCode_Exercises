@@ -25,7 +25,6 @@
 // }
 
 
-
 //Other solution
 function init(n: number): number[] {
     const forest: number[] = [];
