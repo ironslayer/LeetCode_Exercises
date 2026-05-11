@@ -1,0 +1,77 @@
+@startuml
+title Diagrama de Clases - Todas las relaciones UML
+
+' ==================== CLASES E INTERFACES ====================
+
+abstract class Animal {
+  - nombre: String
+  + comer(): void
+}
+
+class Perro {
+  - raza: String
+  + ladrar(): void
+}
+
+interface Volador {
+  + volar(): void
+}
+
+class Pajaro {
+  + volar(): void
+}
+
+class Profesor {
+  - nombre: String
+}
+
+class Estudiante {
+  - matricula: int
+}
+
+class Equipo {
+  - nombre: String
+  + agregar(Jugador): void
+}
+
+class Jugador {
+  - nombre: String
+}
+
+class Casa {
+  - direccion: String
+}
+
+class Habitacion {
+  - nombre: String
+}
+
+class Pedido {
+  + calcularTotal(CalculadoraImpuestos): double
+}
+
+class CalculadoraImpuestos {
+  + aplicarIVA(double): double
+}
+
+' ==================== RELACIONES ====================
+
+' Herencia: Perro hereda de Animal
+Animal <|-- Perro : "Herencia\n(es-un)"
+
+' Realización: Pajaro implementa Volador
+Volador <|.. Pajaro : "Realización\n(implementa)"
+
+' Asociación: Profesor enseña a Estudiante
+Profesor "1" --> "0..*" Estudiante : "Asociación\n(enseña)"
+
+' Agregación: Equipo tiene Jugadores (débil)
+Equipo o-- "0..*" Jugador : "Agregación\n(tiene, débil)"
+
+' Composición: Casa tiene Habitaciones (fuerte)
+Casa *-- "1..*" Habitacion : "Composición\n(tiene, fuerte)"
+
+' Dependencia: Pedido usa CalculadoraImpuestos
+Pedido ..> CalculadoraImpuestos : "Dependencia\n(usa)"
+
+@enduml

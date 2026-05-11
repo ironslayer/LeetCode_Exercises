@@ -1,0 +1,42 @@
+@startuml
+skinparam style strictuml
+hide empty members
+
+' Definición de las 6 Entidades
+class "Universidad (UMSA)" as Universidad
+class "Rectorado" as Rectorado
+class "Unidad Administrativa" as UnidadAdmin
+class "Estudiante / Docente" as Actores
+class "Carrera" as Carrera
+class "Facultad" as Facultad
+
+' --- RELACIONES ---
+
+' 1. Relación 1 a 1 en la cima
+Universidad "1" -- "1" Rectorado
+
+' 2. Flecha hacia la Unidad Administrativa
+Rectorado --> UnidadAdmin 
+
+' 3. Flecha de los Actores hacia la Administración
+Actores --> UnidadAdmin
+
+Actores --o Carrera
+
+Rectorado --o Carrera
+
+' 4. Relación de la Facultad con el Rectorado
+Carrera --* Facultad
+
+'
+
+' 6. Composición (Rombo negro): La Facultad es parte de la Universidad
+' El rombo negro va pegado a la Universidad
+'Facultad " * " --* " 1 " Universidad
+
+' Alineación manual para que se vea como en tu dibujo
+Actores -[hidden]left- Carrera
+Carrera -[hidden]right- Facultad
+Actores -[hidden]left- UnidadAdmin
+
+@enduml
